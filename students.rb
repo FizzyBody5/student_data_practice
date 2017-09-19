@@ -1,14 +1,17 @@
 students = []
 eye_colors = []
 ages = []
+blood_type = []
 driving_age = []
-green_eyed = []
+green_eyed_girls = []
 most_vowels = []
+
 File.open("student_data.csv").each do |line|
     info = line.split(",")
     students.push(info[0].strip)
     eye_colors.push(info[1].strip)
     ages.push(info[2].strip.to_i)
+    blood_type.push(info[3].strip)
 end
 
 # print students, "\n"
@@ -22,7 +25,7 @@ def eye_color(eye_colors)
             sum += 1
         end
     end
-    puts sum
+    return sum
 end
 def driving_maturity(ages)
     ages.each_with_index do |age, i|
@@ -35,7 +38,7 @@ end
 def green_eyed_girl(eye_colors)
     eye_colors.each_with_index do |color, i|
         if color == "Green" && (i % 2 == 0)
-            green_eyed.push(students[i])
+            green_eyed_girls.push(students[i])
         end
     end
     
@@ -66,7 +69,7 @@ def person_with_most_vowels(ages, students)
     return max_name
 end
 
-puts person_with_most_vowels(ages, students)
+# puts person_with_most_vowels(ages, students)
 
 def avg_green_eyed(eye_colors, ages)
     age_sum = 0
@@ -81,6 +84,79 @@ def avg_green_eyed(eye_colors, ages)
     return green_age_sum
 end
 
-puts avg_green_eyed(eye_colors, ages)
+# puts avg_green_eyed(eye_colors, ages)
+def first_green_age(eye_colors, ages)
+    eye_colors.each_with_index do |color, i|
+        if color == "Green"
+            return ages[i]
+        end
+    end
+end
+
+def closest_to_average_green_eyed(eye_colors, ages, students)
+    average = avg_green_eyed(eye_colors, ages)
+    closest_in_age = []
+    closest = first_green_age(eye_colors, ages)
+    eye_colors.each_with_index do |color, i|
+        
+        if color == "Green"
+            if (average - ages[i]).abs < (closest).abs
+                closest = (average - ages[i]).abs
+                closest_in_age = [students[i]]
+            elsif (average - ages[i]).abs == (average - closest).abs
+                closest_in_age.push(students[i])
+            end
+        end
+    end
+    return closest_in_age
+end
+
+puts closest_to_average_green_eyed(eye_colors, ages, students)
+
+def find_student_blood_type(student_name, students, blood_type)
+    student_blood_type = "A"
+    students.each_with_index do |student, i|
+        if student_name == student
+            student_blood_type = blood_type[i]
+        end
+    end
+    return student_blood_type
+end
+puts find_student_blood_type("Lamar", students, blood_type)
+
+
+def possible_blood_donors(student, students, blood_type)
+    this_student_blood_type = find_student_blood_type(student, students, blood_type)
+    possible_donor = []
+    blood_type.each_with_index do |a_student, i|
+
+        if this_student_blood_type == "O"
+            if students[i]== "O" || students[i] == "A" || students[i] == "B" || students[i] == "AB"
+                possible_donor.push(students[i])
+            end
+        end
+
+        if this_student_blood_type == "A"
+            if students[i] == "A" || students[i] == "AB"
+                possible_donor.push(students[i])
+            end
+        end
+
+        if this_student_blood_type == "B"
+            if students[i] == "B" || students[i] == "AB"
+                possible_donor.push(students[i])
+            end
+        end
+
+        if this_student_blood_type == "AB"
+            if students[i] == "AB"
+                possible_donor.push(students[i])
+            end
+        end
+    end
+    return possible_donor
+end
+
+possible_blood_donors("Alice", students, blood_type)
 
 
