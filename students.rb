@@ -111,7 +111,7 @@ def closest_to_average_green_eyed(eye_colors, ages, students)
     return closest_in_age
 end
 
-puts closest_to_average_green_eyed(eye_colors, ages, students)
+# puts closest_to_average_green_eyed(eye_colors, ages, students)
 
 def find_student_blood_type(student_name, students, blood_type)
     student_blood_type = "A"
@@ -128,35 +128,35 @@ puts find_student_blood_type("Lamar", students, blood_type)
 def possible_blood_donors(student, students, blood_type)
     this_student_blood_type = find_student_blood_type(student, students, blood_type)
     possible_donor = []
-    blood_type.each_with_index do |a_student, i|
-
+    students.each do |a_student|
+        student_blood=find_student_blood_type(a_student, students, blood_type)
         if this_student_blood_type == "O"
-            if students[i]== "O" || students[i] == "A" || students[i] == "B" || students[i] == "AB"
-                possible_donor.push(students[i])
+            if student_blood== "O" || student_blood == "A" || student_blood == "B" || student_blood == "AB"
+                possible_donor.push(a_students)
             end
         end
 
         if this_student_blood_type == "A"
-            if students[i] == "A" || students[i] == "AB"
-                possible_donor.push(students[i])
+            if student_blood == "A" || student_blood == "AB"
+                possible_donor.push(a_student)
             end
         end
 
         if this_student_blood_type == "B"
-            if students[i] == "B" || students[i] == "AB"
-                possible_donor.push(students[i])
+            if student_blood == "B" || student_blood == "AB"
+                possible_donor.push(a_student)
             end
         end
 
         if this_student_blood_type == "AB"
-            if students[i] == "AB"
-                possible_donor.push(students[i])
+            if student_blood == "AB"
+                possible_donor.push(a_student)
             end
         end
     end
     return possible_donor
 end
 
-possible_blood_donors("Alice", students, blood_type)
+puts possible_blood_donors("Alice", students, blood_type)
 
 
