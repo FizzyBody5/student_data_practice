@@ -122,7 +122,7 @@ def find_student_blood_type(student_name, students, blood_type)
     end
     return student_blood_type
 end
-puts find_student_blood_type("Lamar", students, blood_type)
+# puts find_student_blood_type("Lamar", students, blood_type)
 
 
 def possible_blood_donors(student, students, blood_type)
@@ -132,7 +132,7 @@ def possible_blood_donors(student, students, blood_type)
         student_blood=find_student_blood_type(a_student, students, blood_type)
         if this_student_blood_type == "O"
             if student_blood== "O" || student_blood == "A" || student_blood == "B" || student_blood == "AB"
-                possible_donor.push(a_students)
+                possible_donor.push(a_student)
             end
         end
 
@@ -157,6 +157,18 @@ def possible_blood_donors(student, students, blood_type)
     return possible_donor
 end
 
-puts possible_blood_donors("Alice", students, blood_type)
+# puts possible_blood_donors("Alice", students, blood_type)
 
 
+def most_blood_donors(students, blood_type)
+    max_donor = 0
+    num = []
+    students.each do |student_name|
+        puts "Name: #{student_name}"
+        num = possible_blood_donors(student_name, students, blood_type)
+    end
+    puts num.length
+
+end
+
+most_blood_donors(students, blood_type)
