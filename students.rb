@@ -164,11 +164,16 @@ def most_blood_donors(students, blood_type)
     max_donor = 0
     num = []
     students.each do |student_name|
-        puts "Name: #{student_name}"
-        num = possible_blood_donors(student_name, students, blood_type)
+        
+        if max_donor < possible_blood_donors(student_name, students, blood_type).length
+            num = [student_name]
+            max_donor = possible_blood_donors(student_name, students, blood_type).length
+        elsif max_donor == possible_blood_donors(student_name, students, blood_type).length
+            num.push(student_name)
+        end
     end
-    puts num.length
-
+    return max_donor
 end
 
-most_blood_donors(students, blood_type)
+puts most_blood_donors(students, blood_type)
+# puts possible_blood_donors("Alice", students, blood_type)
